@@ -52,7 +52,8 @@ def calculate_metric_percase(pred, gt):
         dice = metric.binary.dc(pred, gt)
         hd95 = metric.binary.hd95(pred, gt)
         return dice, hd95
-    elif pred.sum() > 0 and gt.sum()==0:
+    # elif pred.sum() > 0 and gt.sum()==0:
+    elif gt.sum() == 0:
         return 1, 0
     else:
         return 0, 0
@@ -65,6 +66,7 @@ def test_single_volume(image, label, net, classes, patch_size=[256, 256], test_s
         label = label.squeeze(0)
     image, label = image.cpu().detach().numpy(), label.cpu().detach().numpy()
     # image, label = image.squeeze(0).cpu().detach().numpy().squeeze(0), label.squeeze(0).cpu().detach().numpy().squeeze(0)
+
     if len(image.shape) == 3:
         prediction = np.zeros_like(label)
         for ind in range(image.shape[0]):
