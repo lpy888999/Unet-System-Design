@@ -149,7 +149,7 @@ def trainer_liver(args, model, snapshot_path):
                                               generator=torch.Generator().manual_seed(args.seed))
     logging.info(f"训练集大小: {train_split}, 验证集大小: {val_split}")
 
-    # # 记录一下训练时的数据集划分
+    # 记录一下训练时的数据集划分
     # list_mine_dir = "lists/list_mine"
     # os.makedirs(list_mine_dir, exist_ok=True)
     # # 将训练集文件名记录到train.txt文件
@@ -203,7 +203,7 @@ def trainer_liver(args, model, snapshot_path):
             outputs = model(image_batch)
             loss_ce = ce_loss(outputs, label_batch.long())
             loss_dice = dice_loss(outputs, label_batch, softmax=True)
-            loss = 0.4 * loss_ce + 0.6 * loss_dice
+            loss = 0.2 * loss_ce + 0.8 * loss_dice
 
             optimizer.zero_grad()
             loss.backward()
@@ -236,7 +236,7 @@ def trainer_liver(args, model, snapshot_path):
                     outputs = model(image_batch)
                     loss_ce = ce_loss(outputs, label_batch.long())
                     loss_dice = dice_loss(outputs, label_batch, softmax=True)
-                    val_loss += 0.4 * loss_ce.item() + 0.6 * loss_dice.item()
+                    val_loss += 0.2 * loss_ce.item() + 0.8 * loss_dice.item()
 
                 val_loss /= len(val_loader)
                 logging.info(f"Epoch {epoch_num}: 验证损失: {val_loss:.4f}")

@@ -14,7 +14,7 @@ fi
 if [ $cfg ]; then
     CFG=$cfg
 else
-    CFG='configs/swin_patch16_window16_512.yaml'
+    CFG='configs/swin_patch8_window64_512.yaml'
 fi
 
 if [ $data_dir ]; then
@@ -38,7 +38,7 @@ fi
 if [ $batch_size ]; then
     BATCH_SIZE=$batch_size
 else
-    BATCH_SIZE=6
+    BATCH_SIZE=24
 fi
 if [ $val_ratio ]; then
     VAL_RATIO=$val_ratio

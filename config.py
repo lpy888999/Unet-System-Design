@@ -19,7 +19,7 @@ _C.BASE = ['']
 # -----------------------------------------------------------------------------
 _C.DATA = CN()
 # Batch size for a single GPU, could be overwritten by command line argument
-_C.DATA.BATCH_SIZE = 4
+_C.DATA.BATCH_SIZE = 6
 # Path to dataset, could be overwritten by command line argument
 _C.DATA.DATA_PATH = ''
 # Dataset name
@@ -45,12 +45,12 @@ _C.MODEL = CN()
 # Model type
 _C.MODEL.TYPE = 'swin'
 # Model name
-_C.MODEL.NAME = 'swin_tiny_patch4_window7_224'
+_C.MODEL.NAME = 'swin_patch16_window16_512'
 # Checkpoint to resume, could be overwritten by command line argument
-_C.MODEL.PRETRAIN_CKPT = './pretrained_ckpt/swin_tiny_patch4_window7_224.pth'
+_C.MODEL.PRETRAIN_CKPT = './pretrained_ckpt/swin_patch16_window16_512.pth'
 _C.MODEL.RESUME = ''
 # Number of classes, overwritten in data preparation
-_C.MODEL.NUM_CLASSES = 1000
+_C.MODEL.NUM_CLASSES = 2
 # Dropout rate
 _C.MODEL.DROP_RATE = 0.0
 # Drop path rate
@@ -60,13 +60,13 @@ _C.MODEL.LABEL_SMOOTHING = 0.1
 
 # Swin Transformer parameters
 _C.MODEL.SWIN = CN()
-_C.MODEL.SWIN.PATCH_SIZE = 16  # 一个patch 大小是PATCH_SIZE*PATCH_SIZE
+_C.MODEL.SWIN.PATCH_SIZE = 8  # 一个patch 大小是PATCH_SIZE*PATCH_SIZE
 _C.MODEL.SWIN.IN_CHANS = 3
 _C.MODEL.SWIN.EMBED_DIM = 96
 _C.MODEL.SWIN.DEPTHS = [2, 2, 6, 2]
 _C.MODEL.SWIN.DECODER_DEPTHS = [2, 2, 6, 2]
 _C.MODEL.SWIN.NUM_HEADS = [3, 6, 12, 24]
-_C.MODEL.SWIN.WINDOW_SIZE = 16
+_C.MODEL.SWIN.WINDOW_SIZE = 64
 _C.MODEL.SWIN.MLP_RATIO = 4.
 _C.MODEL.SWIN.QKV_BIAS = True
 _C.MODEL.SWIN.QK_SCALE = None

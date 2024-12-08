@@ -1,0 +1,13 @@
+MODEL:
+  TYPE: swin
+  NAME: swin_patch16_window16_512
+  DROP_PATH_RATE: 0.2
+  PRETRAIN_CKPT:
+#    "./pretrained_ckpt/swin_patch8_window16_512.pth"
+  SWIN:
+    FINAL_UPSAMPLE: "expand_first"
+    EMBED_DIM: 96   #要和heads的dim对应
+    DEPTHS: [ 2, 2, 2, 2 ]
+    DECODER_DEPTHS: [ 2, 2, 2, 1]
+    NUM_HEADS: [ 3, 6, 12, 24 ]
+    WINDOW_SIZE: 64

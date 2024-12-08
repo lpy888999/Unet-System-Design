@@ -70,7 +70,6 @@ config = get_config(args)
 
 
 def inference(args, model, test_save_path=None):
-    # TODO 改成data_main 看看test_single_volume保存成nii.gz图片能不能可视化
     # db_test = LiverImageDataset(base_dir=args.volume_path, split=args.split_name, list_dir=args.list_dir)
     db_test = LiverImageDataset(root_dir=args.root_path, split=args.split_name, list_dir=args.list_dir)
     testloader = DataLoader(db_test, batch_size=1, shuffle=False, num_workers=0)
@@ -78,7 +77,7 @@ def inference(args, model, test_save_path=None):
     logging.info("{} test iterations per epoch".format(len(testloader)))
     model.eval()
     metric_list = 0.0
-
+# TODO 能否修改Mean Dice的计算方式 全背景的Dice系数总是0
     for i_batch, sampled_batch in tqdm(enumerate(testloader)):
         # h, w = sampled_batch["image"].size()[2:]
         image, label, case_name = sampled_batch["image"], sampled_batch["label"], sampled_batch['case_name'][0]
