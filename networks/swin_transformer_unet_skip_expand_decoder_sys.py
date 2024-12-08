@@ -536,6 +536,7 @@ class BasicLayer_up(nn.Module):
 
 
 class PatchEmbed(nn.Module):
+    # TODO 这里有问题，为什么[B,512,512] 变成了[6,1024,96],不应该是1024，patch_size = 4 应该是128*128
     r""" Image to Patch Embedding
 
     Args:
@@ -706,7 +707,7 @@ class SwinTransformerSys(nn.Module):
         if self.final_upsample == "expand_first":
             print("---final upsample expand_first---")
             self.up = FinalPatchExpand_X4(input_resolution=(img_size // patch_size, img_size // patch_size),
-                                          dim_scale=8, dim=embed_dim) # TODO 参数自动化
+                                          dim_scale=16, dim=embed_dim)
             self.output = nn.Conv2d(in_channels=embed_dim, out_channels=self.num_classes, kernel_size=1, bias=False)
 
         self.apply(self._init_weights)
@@ -771,7 +772,7 @@ class SwinTransformerSys(nn.Module):
             # print("before final_upsample",x.shape)
             x = self.up(x)
             # print("after final_upsample",x.shape)
-            x = x.view(B, 8 * H, 8 * W, -1)  # TODO 根据放大倍率修改
+            x = x.view(B, 16 * H, 16 * W, -1)  # 根据放大倍率修改
 
             x = x.permute(0, 3, 1, 2)  # B,C,H,W
             x = self.output(x)
