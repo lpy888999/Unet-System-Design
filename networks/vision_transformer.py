@@ -57,7 +57,7 @@ class SwinUnet(nn.Module):
             pretrained_dict = torch.load(pretrained_path, map_location=device)
             if "model"  not in pretrained_dict:
                 print("---start load pretrained modle by splitting---")
-                pretrained_dict = {k[17:]:v for k,v in pretrained_dict.items()}
+                pretrained_dict = {k[10:]:v for k,v in pretrained_dict.items()}
                 for k in list(pretrained_dict.keys()):
                     if "output" in k:
                         print("delete key:{}".format(k))
